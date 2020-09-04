@@ -30,7 +30,6 @@ class EventsController < ApplicationController
       if @event.save
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
-        session[:current_user_id] = @user.id
       else
         format.html { render :new }
         format.json { render json: @event.errors, status: :unprocessable_entity }
