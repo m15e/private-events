@@ -27,6 +27,7 @@
 <tbody>
   <% @user.events.each do |event| %>
     <tr>
+      <% if event.user_id == @user.id %>
       <td><%= event.location %></td>
       <td><%= event.time %></td>
       <td><%= event.title %></td>
@@ -34,10 +35,18 @@
       <td><%= link_to 'Show', event %></td>
       <td><%= link_to 'Edit', edit_event_path(event) %></td>
       <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
     </tr>
   <% end %>
 </tbody>
 </table>
+
+<% @invites.each do |invite| %>
+<% if invite.user.id == @user.id %>
+<%= invite.event.title %>
+<br>
+<% end %>
+<% end %>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

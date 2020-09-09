@@ -9,25 +9,38 @@ class EventsController < ApplicationController
 
   # GET /events/1
   # GET /events/1.json
-  def show; end
+  def show
+    @invites = Invite.all
+  end
 
   # GET /events/new
   def new
-    @event = Event.new
+    if current_user
+      @event = Event.new
+      @users = User.all
+      @invite = Invite.new
+    else
+      redirect_to new_user_path
+    end
   end
 
   # GET /events/1/edit
-  def edit; end
+  def edit
+    @users = User.all
+  end
 
   # POST /events
   # POST /events.json
   def create
-    # @event = current_user.events.build
-    @event = Event.new(event_params)
-    @event.user_id = current_user.id
+    # @users = User.all
+    @event = current_user.events.build(event_params)
+    # @event = Event.new(event_params)
+    # @event.user_id = current_user.id
+    # @event.invites << @user
 
     respond_to do |format|
       if @event.save
+        # @invite = @event.users.build(invite_params)
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
@@ -71,5 +84,6 @@ class EventsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def event_params
     params.require(:event).permit(:time, :location, :title, :description, :user_id)
+    # , invites: [:id])
   end
 end

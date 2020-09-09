@@ -20,5 +20,27 @@
   <%= @event.description %>
 </p>
 
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @event.attendees.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<% if current_user && current_user.id == @event.user_id %>
 <%= link_to 'Edit', edit_event_path(@event) %> |
+<% end %>
 <%= link_to 'Back', events_path %>

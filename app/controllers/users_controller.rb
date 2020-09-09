@@ -4,13 +4,18 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    if current_user
+      @users = User.all
+    else
+      redirect_to root_path
+    end
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
     set_user
+    @invites = Invite.all
   end
 
   # GET /users/new
