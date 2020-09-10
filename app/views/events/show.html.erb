@@ -30,7 +30,7 @@
   </thead>
 
   <tbody>
-    <% @event.attendees.each do |user| %>
+    <% @event.attendees.uniq.each do |user| %>
       <tr>
         <td><%= user.name %></td>
         <td><%= user.email %></td>

@@ -47,24 +47,25 @@
 </p>
 
 
-  <p><strong>Upcoming Events</strong></p>
-  <% @invites.each do |invite| %>
-  <% if invite.user.id == @user.id %>
-  <% if invite.event.time >= DateTime.now %>  
-    <%= invite.event.title %>
-    <%= invite.event.time %>
-  <% end %>
-  <% end %> <!-- ends if invite.user.id -->
-  <% end %> <!-- ends @invites.each -->
-  <p><strong>Past Events</strong></p>
-  <% @invites.each do |invite| %>
-  <% if invite.user.id == @user.id %>
-  <% if invite.event.time < DateTime.now %>  
-    <%= invite.event.title %>
-    <%= invite.event.time %>
-  <% end %>
-  <% end %> <!-- ends if invite.user.id -->
-  <% end %> <!-- ends @invites.each -->
+<p><strong>Upcoming Events</strong></p>
+<% @invites.uniq.each do |invite| %>
+<% if invite.user.id == @user.id %>
+<% if invite.event.time >= DateTime.now %>  
+  <%= invite.event.title %>
+  <%= invite.event.time %>
+<% end %>
+<% end %>
+<% end %>
+<p><strong>Past Events</strong></p>
+<% @invites.uniq.each do |invite| %>
+<% if invite.user.id == @user.id %>
+<% if invite.event.time < DateTime.now %>  
+  <%= invite.event.title %>
+  <%= invite.event.time %>
+<% end %>
+<% end %>
+<% end %>
+
 <br>
 
 <br>
