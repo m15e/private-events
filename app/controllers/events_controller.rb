@@ -32,14 +32,40 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
-    # @users = User.all
-    @event = current_user.events.build(event_params)
+    @users = User.all
+
+    @event = current_user.events.build(event_params.except(:invites))
     # @event = Event.new(event_params)
     # @event.user_id = current_user.id
     # @event.invites << @user
 
     respond_to do |format|
       if @event.save
+
+        event_params.slice(:invites).values.each do |x|
+          x.each do |y|
+            if y.empty?
+            else
+              user = @users.find(y.to_i) # unless y.strip.empty?
+              @event.attendees << user
+            end
+          end
+        end
+        # event_params.slice(:invites).each do |user_id|
+        #   p user_id
+        #   # p 'CHECK HERE'
+        #   # p @users.find(user_id) if user_id.class == Integer
+        #   #   @users.each do |user|
+        #   # puts user_id
+        # end
+
+        # @event.attendees << current_user
+
+        # @invite = Invite.new(event_params)
+
+        # params[:invites].each do |user|
+        #   @event.attendees << user
+        # end
         # @invite = @event.users.build(invite_params)
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
@@ -83,7 +109,7 @@ class EventsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def event_params
-    params.require(:event).permit(:time, :location, :title, :description, :user_id)
+    params.require(:event).permit(:time, :location, :title, :description, :creator_id, invites: [])
     # , invites: [:id])
   end
 end

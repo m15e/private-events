@@ -11,7 +11,7 @@
 </p>
 
 <p>
-  <strong>Events:</strong>
+  <strong>Events Created:</strong>
 </p>
 
 <table>
@@ -41,12 +41,20 @@
 </tbody>
 </table>
 
+
+<p>
+  <strong>Events Attending:</strong>
+</p>
 <% @invites.each do |invite| %>
 <% if invite.user.id == @user.id %>
 <%= invite.event.title %>
+<%= invite.event.time %>
 <br>
 <% end %>
 <% end %>
+<br>
+
+
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

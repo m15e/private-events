@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :time %>
-    <%= form.text_field :time %>
+    <%= form.datetime_field :time %>
   </div>
 
   <div class="field">
@@ -31,27 +31,15 @@
     <%= form.text_area :description %>
   </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @users.each do |user| %>
-        <tr>
-          <td><%= user.name %></td>
-          <td><%= user.email %></td>
-          <%= form.fields_for :invites do |i| %>
-          <td><%= i.check_box user.id %></td>
-          <% end %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div class="field">
+  <% form.label "Guest List" %><br />
+  <%= form.collection_check_boxes :invites, User.all, :id, :name do |b| %>
+    <div class="collection-check-box">
+      <%= b.check_box %>
+      <%= b.label %>
+    </div>
+  <% end %>
+</div>
 
   <div class="actions">
     <%= form.submit %>
