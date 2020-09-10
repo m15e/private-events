@@ -6,4 +6,6 @@ class Event < ApplicationRecord
 
   scope :future, -> { where('time >= ?', DateTime.now).order(time: :desc) }
   scope :past, -> { where('time < ?', DateTime.now).order(time: :desc) }
+
+  validates :location, :title, :description, :time, presence: true
 end
