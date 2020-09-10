@@ -50,7 +50,7 @@
 <p><strong>Upcoming Events</strong></p>
 <% @invites.uniq.each do |invite| %>
 <% if invite.user.id == @user.id %>
-<% if invite.event.time >= DateTime.now %>  
+<% if invite.event.time >= DateTime.now %>
   <%= invite.event.title %>
   <%= invite.event.time %>
 <% end %>
@@ -59,7 +59,7 @@
 <p><strong>Past Events</strong></p>
 <% @invites.uniq.each do |invite| %>
 <% if invite.user.id == @user.id %>
-<% if invite.event.time < DateTime.now %>  
+<% if invite.event.time < DateTime.now %>
   <%= invite.event.title %>
   <%= invite.event.time %>
 <% end %>

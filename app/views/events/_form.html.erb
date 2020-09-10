@@ -34,12 +34,12 @@
   <div class="field">
   <%= form.label "Guest List" %>
   <%= form.collection_check_boxes :invites, User.all, :id, :name do |b| %>
-    <div class="collection-check-box" style='display:flex'>      
+    <div class="collection-check-box" style='display:flex'>
       <%= b.check_box %>
       <%= b.label %>
     </div>
   <% end %>
-  </div> 
+  </div>
   <br>
 
   <div class="actions">

@@ -45,7 +45,7 @@ class EventsController < ApplicationController
           x.each do |y|
             if y.empty?
             else
-              user = @users.find(y.to_i) # unless y.strip.empty?
+              user = @users.find(y.to_i)
               @event.attendees << user
             end
           end
