@@ -27,10 +27,10 @@ ActiveRecord::Schema.define(version: 2020_09_10_081840) do
   end
 
   create_table "invites", force: :cascade do |t|
-    t.integer "event_id"
-    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "event_id"
+    t.integer "user_id"
   end
 
   create_table "sessions", force: :cascade do |t|

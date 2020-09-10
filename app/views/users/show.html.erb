@@ -45,14 +45,31 @@
 <p>
   <strong>Events Attending:</strong>
 </p>
-<% @invites.each do |invite| %>
-<% if invite.user.id == @user.id %>
-<%= invite.event.title %>
-<%= invite.event.time %>
+
+
+  <p><strong>Upcoming Events</strong></p>
+  <% @invites.each do |invite| %>
+  <% if invite.user.id == @user.id %>
+  <% if invite.event.time >= DateTime.now %>  
+    <%= invite.event.title %>
+    <%= invite.event.time %>
+  <% end %>
+  <% end %> <!-- ends if invite.user.id -->
+  <% end %> <!-- ends @invites.each -->
+  <p><strong>Past Events</strong></p>
+  <% @invites.each do |invite| %>
+  <% if invite.user.id == @user.id %>
+  <% if invite.event.time < DateTime.now %>  
+    <%= invite.event.title %>
+    <%= invite.event.time %>
+  <% end %>
+  <% end %> <!-- ends if invite.user.id -->
+  <% end %> <!-- ends @invites.each -->
 <br>
-<% end %>
-<% end %>
+
 <br>
+
+
 
 
 

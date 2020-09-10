@@ -79,8 +79,19 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
-    respond_to do |format|
-      if @event.update(event_params)
+    @users = User.all
+    respond_to do |format|      
+      if @event.update(event_params.except(:invites))
+
+        event_params.slice(:invites).values.each do |x|
+          x.each do |y|
+            if y.empty?
+            else
+              user = @users.find(y.to_i) # unless y.strip.empty?
+              @event.attendees << user
+            end
+          end
+        end
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
         format.json { render :show, status: :ok, location: @event }
       else
