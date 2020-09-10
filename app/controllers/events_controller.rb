@@ -5,6 +5,8 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     @events = Event.all
+    @future = Event.future
+    @past = Event.past
   end
 
   # GET /events/1
@@ -80,7 +82,7 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1.json
   def update
     @users = User.all
-    respond_to do |format|      
+    respond_to do |format|
       if @event.update(event_params.except(:invites))
 
         event_params.slice(:invites).values.each do |x|
