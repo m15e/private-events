@@ -30,10 +30,10 @@
   </thead>
 
   <tbody>
-  <%= show_attendees(@event) %>
+    <%= show_attendees(@event) %>
   </tbody>
 </table>
 
 <br>
-<%= edit_event(current_user, @event) %> |
+<%= edit_event(current_user, @event) %>
 <%= link_to 'Back', events_path %>
