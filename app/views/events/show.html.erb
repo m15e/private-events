@@ -30,17 +30,10 @@
   </thead>
 
   <tbody>
-    <% @event.attendees.uniq.each do |user| %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-      </tr>
-    <% end %>
+    <%= show_attendees(@event) %>
   </tbody>
 </table>
 
 <br>
-<% if current_user && current_user.id == @event.user_id %>
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<% end %>
+<%= edit_event(current_user, @event) %>
 <%= link_to 'Back', events_path %>
