@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Events Created:</strong>
+</p>
+
+<table>
+<thead>
+  <tr>
+    <th>Location</th>
+    <th>Time</th>
+    <th>Title</th>
+    <th>Description</th>
+    <th colspan="3"></th>
+  </tr>
+</thead>
+<tbody>
+  <%= show_created(current_user, @user) %>
+</tbody>
+</table>
+
+
+<p>
+  <strong>Events Attending:</strong>
+</p>
+
+
+<p><strong>Upcoming Events</strong></p>
+<%= show_upcoming(@invites, @user) %>
+
+<p><strong>Past Events</strong></p>
+<%= show_past(@invites, @user) %>
+
+
+<br>
+
+<br>
+
+<%= edit_user(current_user, @user) %> |
+<%= link_to 'Back', users_path %>
