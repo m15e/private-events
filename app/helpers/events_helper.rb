@@ -26,9 +26,9 @@ module EventsHelper
     @tr_content    
   end
 
-  def future_events(future)
-    @future_body = content_tag(:tbody)
-    future.each do |event|
+  def events_list(events)
+    @list_body = content_tag(:tbody)
+    events.each do |event|
       @content = content_tag(:tr)
       @content << content_tag(:td, event.user_id)
       @content << content_tag(:td, event.time)
@@ -40,27 +40,9 @@ module EventsHelper
         @content << content_tag(:td, edit_link(event))
         @content << content_tag(:td, destroy_link(event))
       end
-      @future_body << @content
+      @list_body << @content
     end
-    @future_body
+    @list_body
   end
 
-  def past_events(past)
-    @past_body = content_tag(:tbody)
-    past.each do |event|
-      @content = content_tag(:tr)
-      @content << content_tag(:td, event.user_id)
-      @content << content_tag(:td, event.time)
-      @content << content_tag(:td, event.location)
-      @content << content_tag(:td, event.title)
-      @content << content_tag(:td, event.description)
-      @content << content_tag(:td, show_link(event))
-      if current_user && current_user.id == event.user_id
-        @content << content_tag(:td, edit_link(event))
-        @content << content_tag(:td, destroy_link(event))
-      end
-      @past_body << @content
-    end
-    @past_body
-  end
 end
