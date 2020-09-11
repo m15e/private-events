@@ -3,19 +3,24 @@ module UsersHelper
     link_to 'Edit', edit_user_path(user) if current_user && current_user.id == user.id
   end
 
-  def show_users(users)
+  def show_users(current_user, users)
     @tr_content = content_tag(:div)
     users.each do |user|
       @content = content_tag(:tr)
       @content << content_tag(:td, user.name)
       @content << content_tag(:td, user.email)
       @content << content_tag(:td, user.id)
+      @content << content_tag(:td, show_link(user))
+      if current_user && current_user.id == user.id
+        @content << content_tag(:td, edit_user(current_user, user))
+        @content << content_tag(:td, destroy_link(user))
+      end
       @tr_content << @content
     end
     @tr_content
   end
 
-  def show_created(user)
+  def show_created(current_user, user)
     @tr_content = content_tag(:div)
     user.events.uniq.each do |event|
       @content = content_tag(:tr)
@@ -24,18 +29,16 @@ module UsersHelper
         @content << content_tag(:td, event.time)
         @content << content_tag(:td, event.title)
         @content << content_tag(:td, event.description)
+        @content << content_tag(:td, show_link(event))
+        if current_user && current_user.id == user.id
+          @content << content_tag(:td, edit_link(event))
+          @content << content_tag(:td, destroy_link(event))
+        end
       end
       @tr_content << @content
     end
     @tr_content
   end
-
-  #     <td><%= link_to 'Show', event %></td>
-  #     <td><%= link_to 'Edit', edit_event_path(event) %></td>
-  #     <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  #     <% end %>
-  #   </tr>
-  # <% end %>
 
   def show_upcoming(invites, user)
     @tr_content = content_tag(:div)
