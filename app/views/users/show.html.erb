@@ -25,19 +25,7 @@
   </tr>
 </thead>
 <tbody>
-  <% @user.events.each do |event| %>
-    <tr>
-      <% if event.user_id == @user.id %>
-      <td><%= event.location %></td>
-      <td><%= event.time %></td>
-      <td><%= event.title %></td>
-      <td><%= event.description %></td>
-      <td><%= link_to 'Show', event %></td>
-      <td><%= link_to 'Edit', edit_event_path(event) %></td>
-      <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      <% end %>
-    </tr>
-  <% end %>
+  <%= show_created(@user) %>
 </tbody>
 </table>
 
@@ -48,31 +36,15 @@
 
 
 <p><strong>Upcoming Events</strong></p>
-<% @invites.uniq.each do |invite| %>
-<% if invite.user.id == @user.id %>
-<% if invite.event.time >= DateTime.now %>
-  <%= invite.event.title %>
-  <%= invite.event.time %>
-<% end %>
-<% end %>
-<% end %>
+<%= show_upcoming(@invites, @user) %>
+
 <p><strong>Past Events</strong></p>
-<% @invites.uniq.each do |invite| %>
-<% if invite.user.id == @user.id %>
-<% if invite.event.time < DateTime.now %>
-  <%= invite.event.title %>
-  <%= invite.event.time %>
-<% end %>
-<% end %>
-<% end %>
+<%= show_past(@invites, @user) %>
+
 
 <br>
 
 <br>
 
-
-
-
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= edit_user(current_user, @user) %> |
 <%= link_to 'Back', users_path %>
